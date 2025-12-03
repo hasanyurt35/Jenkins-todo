@@ -1,0 +1,18 @@
+FROM node:20-alpine
+
+# Create app directory
+WORKDIR /app
+
+# Set Node.js options to use legacy OpenSSL provider
+ENV NODE_OPTIONS="--openssl-legacy-provider"
+
+COPY ./react/client/package*.json ./
+
+RUN yarn install
+
+# copy all files into the image
+COPY ./react/client/ .
+
+EXPOSE 3000
+
+CMD ["yarn", "run", "start"]
